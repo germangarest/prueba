@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEON PULSE | 2025 Vibe Coding Game Jam</title>
+    <meta name="description" content="Un juego de plataformas minimalista donde eres una partícula de luz que debe atravesar un mundo geométrico en constante cambio al ritmo de la música generada proceduralmente.">
+    
+    <!-- Preload de fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/mobile.css" media="(max-width: 768px)">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/textures/favicon.png">
+    
+    <!-- Open Graph para compartir en redes sociales -->
+    <meta property="og:title" content="NEON PULSE | 2025 Vibe Coding Game Jam">
+    <meta property="og:description" content="Un juego de plataformas minimalista donde eres una partícula de luz que debe atravesar un mundo geométrico en constante cambio al ritmo de la música generada proceduralmente.">
+    <meta property="og:image" content="assets/textures/og-image.jpg">
+    <meta property="og:type" content="website">
+</head>
+<body>
+    <!-- Contenedor principal del juego -->
+    <div id="game-container"></div>
+    
+    <!-- UI - Interfaz de usuario -->
+    <div id="ui-container">
+        <!-- Pantalla de inicio -->
+        <div id="start-screen" class="screen">
+            <div class="screen-content">
+                <h1 class="game-title">NEON PULSE</h1>
+                <p class="tagline">Vibra al ritmo de la luz</p>
+                <button id="start-btn" class="pulse-btn">INICIAR</button>
+                <div class="instructions">
+                    <h3>Cómo jugar</h3>
+                    <div class="controls-info">
+                        <div class="keyboard-controls">
+                            <p><strong>PC:</strong> WASD/Flechas para moverte, ESPACIO para saltar</p>
+                        </div>
+                        <div class="touch-controls">
+                            <p><strong>Móvil:</strong> Joystick para moverte, botón JUMP para saltar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="neon-footer">2025 Vibe Coding Game Jam</div>
+        </div>
+        
+        <!-- Pantalla de pausa -->
+        <div id="pause-screen" class="screen">
+            <div class="screen-content">
+                <h2>PAUSA</h2>
+                <button id="resume-btn" class="pulse-btn">CONTINUAR</button>
+                <button id="restart-btn-pause" class="pulse-btn">REINICIAR</button>
+                <div class="volume-controls">
+                    <label>
+                        Música
+                        <input type="range" id="music-volume" min="0" max="1" step="0.1" value="0.7">
+                    </label>
+                    <label>
+                        Efectos
+                        <input type="range" id="sfx-volume" min="0" max="1" step="0.1" value="0.8">
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pantalla de game over -->
+        <div id="game-over-screen" class="screen">
+            <div class="screen-content">
+                <h2>GAME OVER</h2>
+                <div class="final-score">Score: 0 | Best: 0</div>
+                <button id="restart-btn" class="pulse-btn">INTENTAR DE NUEVO</button>
+                <button id="share-btn" class="pulse-btn">COMPARTIR SCORE</button>
+            </div>
+        </div>
+        
+        <!-- HUD - Elementos en pantalla durante el juego -->
+        <div id="hud">
+            <div id="score">0</div>
+            <div id="pause-btn" class="icon-btn">II</div>
+            <div id="lives">
+                <span class="life"></span>
+                <span class="life"></span>
+                <span class="life"></span>
+            </div>
+            <div id="audio-visualizer"></div>
+        </div>
+    </div>
+    
+    <!-- Preload de sonidos (silenciosos) para mejorar respuesta en móviles -->
+    <audio id="preload-audio" src="assets/audio/preload.mp3" preload="auto"></audio>
+    
+    <!-- Librerías de terceros importadas desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.10.0/dist/nipplejs.min.js"></script>
+    
+    <!-- Scripts de la aplicación -->
+    <script type="module" src="js/main.js"></script>
+    
+    <!-- Script para Analytics (opcional) -->
+    <script>
+        // Código simple para registrar estadísticas anónimas de juego
+        function logGameStart() {
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon('https://example.com/analytics/game-start');
+            }
+        }
+        
+        document.getElementById('start-btn').addEventListener('click', function() {
+            // Iniciar audio con interacción del usuario (requerido por navegadores)
+            document.getElementById('preload-audio').play().catch(() => {});
+            // Registrar inicio de juego
+            logGameStart();
+        });
+    </script>
+</body>
+</html>
